@@ -45,9 +45,7 @@ public_users.get('/author/:author',function (req, res) {
   for(let i=1;i<=10;i++){
       if(books[i].author===author)
       return res.send(books[i])
-
   }
-
 });
 
 
