@@ -28,7 +28,6 @@ public_users.get('/',function (req, res) {
   //Write your code here
   console.log(books)
   return res.send(JSON.stringify({books},null,4));
-  
 });
 
 
@@ -49,7 +48,6 @@ public_users.get('/author/:author',function (req, res) {
       if(books[i].author===author)
       return res.send(books[i])
   }
-
 });
 
 
@@ -61,7 +59,6 @@ public_users.get('/title/:title',function (req, res) {
   for(let i=1;i<=10;i++){
       if(books[i].title===title)
       return res.send(books[i])
-
   }
 });
 
