@@ -4,6 +4,7 @@ const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
 
+
 const app = express();
 
 app.use(express.json());
@@ -18,13 +19,12 @@ if(req.session.authorization) {
         if(!err){
             req.user = user;
             next();
-        }
-        else{
-            return res.status(403).json({message: "User not authenticated"})
+        }else{
+        return res.status(403).json({message: "User not authenticated"})
         }
      });
  } else {
-     return res.status(403).json({message: "User not logged in"})
+  return res.status(403).json({message: "User not logged in"})
  }
 });
 
