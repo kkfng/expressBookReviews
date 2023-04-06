@@ -137,4 +137,80 @@ public_users.get('/title/:title',function (req, res) {
    .catch(err => res.status(404).send(err));
 });
 
+
+// Task 10
+// Get all books
+function getBookList(){
+    return new Promise((resolve,reject)=>{
+      resolve(books);
+    })
+  }
+  
+public_users.get('/',async function (req, res) {
+    const books_async=await getAllBooks();
+    res.send(JSON.stringify(books_async,null,4));
+});
+
+// Task 11
+// Get by ISBN
+function getFromISBN(isbn){
+    let book_Asyn = books[isbn];  
+    return new Promise((resolve,reject)=>{
+      if (book_Asyn) {
+        resolve(book_Asyn);
+      }else{
+        reject("Unable to find book!");
+      }    
+    })
+  }
+
+public_users.get('/isbn/:isbn',function (req, res) {
+    getBookByISBN(req.params.isbn)
+    .then(book=>res.send(JSON.stringify(book,null,4)))
+    .catch(err => res.status(404).send(err));
+ });
+
+
+// Task 12
+// Get book by author
+function getFromAuthor(author){
+    let output = [];
+    return new Promise((resolve,reject)=>{
+      for (var isbn in books) {
+        let book_Asyn = books[isbn];
+        if (book_Asyn.author === author){
+          output.push(book_Asyn);
+        }
+      }
+      resolve(output);  
+    })
+  }
+
+public_users.get('/author/:author',function (req, res) {
+    getBookByAuthor(req.params.author)
+    .then(book => res.send(JSON.stringify(book,null,4)))
+    .catch(err => res.status(404).send(err));
+});
+
+// Task 13
+// Get book by title
+function getFromTitle(title){
+    let output = [];
+    return new Promise((resolve,reject)=>{
+      for (var isbn in books) {
+        let book_Asyn = books[isbn];
+        if (book_Asyn.title === title){
+          output.push(book_Asyn);
+        }
+      }
+      resolve(output);  
+    })
+  }
+
+public_users.get('/title/:title',function (req, res) {
+   getBookByTitle(req.params.title)
+   .then(book => res.send(JSON.stringify(book,null,4)))
+   .catch(err => res.status(404).send(err));
+});
+
 module.exports.general = public_users;
